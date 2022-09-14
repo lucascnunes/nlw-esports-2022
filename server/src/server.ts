@@ -3,6 +3,7 @@ import express from 'express'
 import cors from 'cors'
 
 import { PrismaClient } from '@prisma/client'
+import { z } from 'zod'
 import { convertHourStringToMinutes } from './utils/convertHourStringToMinutes'
 import { convertMinutesToHourString } from './utils/convertMinutesToHourString copy'
 
@@ -34,7 +35,20 @@ app.post('/games/:id/ads', async (request, response) => {
     const gameId = request.params.id
     const body = request.body
 
-    // adicionar zod
+    const AdValidate =
+        z.object({
+            name: z.string(),
+            discord: z.string(),
+            weekDays: z.array(z.number()),
+            useVoiceChannel: z.boolean(),
+            yearsPlaying: z.number(),
+            hourStart: z.string(),
+            hourEnd: z.string(),
+        }).safeParse(body)
+
+    if (!AdValidate.success) {
+        return response.status(500).json(AdValidate.error.issues)
+    }
 
     const ad = await prisma.ad.create({
         data: {

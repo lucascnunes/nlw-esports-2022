@@ -9,10 +9,12 @@ import { styles } from "./styles";
 
 import { GameCard } from "../../components/GameCard";
 import { Loading } from "../../components/Loading";
+import { Background } from "../../components/Background";
+import { useNavigation } from "@react-navigation/native";
 
 interface Game {
   id: string;
-  title: string;
+  name: string;
   banner: string;
   _count: {
     ads: number;
@@ -23,12 +25,10 @@ export function Home() {
   const [games, setGames] = useState<Game[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const navigation = useNavigation();
+
   useEffect(() => {
-    fetch("http://192.168.1.86:3333/games")
-      .then((response) => response.json())
-      .then((data) => {
-        setTimeout(() => setGames(data), 1200);
-      });
+    reloadGames();
   }, []);
 
   function reloadGames() {
@@ -41,31 +41,42 @@ export function Home() {
       });
   }
 
-  return (
-    <SafeAreaView style={styles.container}>
-      <Image
-        source={logoImg}
-        style={styles.logo}
-      />
-      <Heading
-        title="Encontre seu duo!"
-        subtitle="Selecione o game que deseja jogar..."
-      />
+  function handleOpenGame(item: Game) {
+    navigation.navigate("game", item);
+  }
 
-      {games.length === 0 ? (
-        <Loading />
-      ) : (
-        <FlatList
-          data={games}
-          keyExtractor={(item) => item.id}
-          onRefresh={reloadGames}
-          refreshing={isLoading}
-          renderItem={({ item }) => <GameCard data={item} />}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.contentList}
+  return (
+    <Background>
+      <SafeAreaView style={styles.container}>
+        <Image
+          source={logoImg}
+          style={styles.logo}
         />
-      )}
-    </SafeAreaView>
+        <Heading
+          title="Encontre seu duo!"
+          subtitle="Selecione o game que deseja jogar..."
+        />
+
+        {games.length === 0 ? (
+          <Loading />
+        ) : (
+          <FlatList
+            data={games}
+            keyExtractor={(item) => item.id}
+            onRefresh={reloadGames}
+            refreshing={isLoading}
+            renderItem={({ item }) => (
+              <GameCard
+                data={item}
+                onPress={() => handleOpenGame(item)}
+              />
+            )}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.contentList}
+          />
+        )}
+      </SafeAreaView>
+    </Background>
   );
 }

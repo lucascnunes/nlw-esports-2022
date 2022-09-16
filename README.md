@@ -1,4 +1,4 @@
-# NLW eSports 2022
+# nlw-esports-2022
 
 
 ### server [node]
@@ -23,23 +23,9 @@ Aplicação em react concluída seguindo as aulas da NLW eSports de 2022.
 - [ ] administrativo para carregamento de novos jogos e acionamento do pré fetching(ou adicionar script a parte para isso) e gerenciamento geral
 ---
 <div align="center">
-	página inicial com listagem dos jogos
+	versão web react
 </div>
-
-![react native web application nlw esports](https://i.imgur.com/QJZaJrQ.jpg)
-
-<div align="center">
-	modal para publicação de novo anúncio
-</div>
-
-![react native web application nlw esports](https://i.imgur.com/7zfzk0G.jpg)
-
-<div align="center">
-	demonstração da utilização do select da biblioteca radix-ui
-</div>
-
-![react native web application nlw esports](https://i.imgur.com/NjlctxA.jpg)
-
+	<img src="https://i.imgur.com/QJZaJrQ.jpg" height="63%"> <img src="https://i.imgur.com/7zfzk0G.jpg" height="63%"> <img src="https://i.imgur.com/NjlctxA.jpg" height="63%">
 
 
 ### mobile [react-native]
@@ -47,7 +33,17 @@ Aplicação em react concluída seguindo as aulas da NLW eSports de 2022.
 Aplicação em react-native concluída seguindo as aulas da NLW eSports de 2022.
 
 ###### TODO
-- [ ] estou terminando, em breve fotos
+- [ ] notificação de anuncios publicados
+- [ ] adição de novos anúncios
+- [ ] login via discord
+- [ ] gerenciamento dos anúncios publicados
+
+<div align="center">
+	versão mobile react-native
+</div>
+	<img src="https://i.imgur.com/jE8eSJn.jpeg" height="63%"> <img src="https://i.imgur.com/NHghXGp.jpeg" height="63%"> <img src="https://i.imgur.com/V34ooQB.jpeg" height="63%">
+
+
 
 
 ##### Figma 
@@ -55,7 +51,7 @@ Aplicação em react-native concluída seguindo as aulas da NLW eSports de 2022.
 
 
 ##### Veja todas as fotos no link abaixo:
-[Imgur NLW eSports](https://imgur.com/a/QoVOg5F)
+[Imgur NLW eSports](https://imgur.com/gallery/QoVOg5F)
 
 
 #### Informações para contato

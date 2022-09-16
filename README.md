@@ -25,7 +25,9 @@ Aplicação em react concluída seguindo as aulas da NLW eSports de 2022.
 <div align="center">
 	versão web react
 </div>
-	<img src="https://i.imgur.com/QJZaJrQ.jpg" height="63%"> <img src="https://i.imgur.com/7zfzk0G.jpg" height="63%"> <img src="https://i.imgur.com/NjlctxA.jpg" height="63%">
+<p float="left">
+<img src="https://i.imgur.com/QJZaJrQ.jpg" height="63%"> <img src="https://i.imgur.com/7zfzk0G.jpg" height="63%"> <img src="https://i.imgur.com/NjlctxA.jpg" height="63%">
+</p>
 
 
 ### mobile [react-native]
@@ -41,7 +43,9 @@ Aplicação em react-native concluída seguindo as aulas da NLW eSports de 2022.
 <div align="center">
 	versão mobile react-native
 </div>
-	<img src="https://i.imgur.com/jE8eSJn.jpeg" height="63%"> <img src="https://i.imgur.com/NHghXGp.jpeg" height="63%"> <img src="https://i.imgur.com/V34ooQB.jpeg" height="63%">
+<p float="left">
+<img src="https://i.imgur.com/jE8eSJn.jpeg" width="33%"> <img src="https://i.imgur.com/NHghXGp.jpeg" width="33%"> <img src="https://i.imgur.com/V34ooQB.jpeg" width="33%">
+</p>
 
 
 

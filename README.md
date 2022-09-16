@@ -44,7 +44,7 @@ Aplicação em react-native concluída seguindo as aulas da NLW eSports de 2022.
 	versão mobile react-native
 </div>
 <p float="left">
-<img src="https://i.imgur.com/jE8eSJn.jpeg" width="33%"> <img src="https://i.imgur.com/NHghXGp.jpeg" width="33%"> <img src="https://i.imgur.com/V34ooQB.jpeg" width="33%">
+<img src="https://i.imgur.com/jE8eSJn.jpeg" width="23%"> <img src="https://i.imgur.com/NHghXGp.jpeg" width="23%"> <img src="https://i.imgur.com/V34ooQB.jpeg" width="23%">
 </p>
 
 

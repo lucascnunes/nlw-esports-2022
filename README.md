@@ -59,5 +59,5 @@ Aplicação em react-native concluída seguindo as aulas da NLW eSports de 2022.
 
 
 #### Informações para contato
-[Github](https://github.com/lucascnunes) - 
+[Github](https://github.com/lucascnunes) - [LinkedIn](https://www.linkedin.com/in/lucaspnunes/) - 
 [Instagram](https://instagram.com/lucasparreiranunes) - [Lucas Nunes (Chizuko)#0959](https://discord.com/users/105416177479647232)

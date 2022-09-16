@@ -10,6 +10,7 @@ import { Background } from "../../components/Background";
 import { Heading } from "../../components/Heading";
 import { DuoCard, DuoCardProps } from "../../components/DuoCard";
 import { Loading } from "../../components/Loading";
+import { DuoMatch } from "../../components/DuoMatch";
 
 import { styles } from "./styles";
 import { THEME } from "../../theme";
@@ -18,6 +19,7 @@ import logoImg from "../../assets/logo-nlw-esports.png";
 
 export function Game() {
   const [duos, setDuos] = useState<DuoCardProps[]>([]);
+  const [duoSelected, setDuoSelected] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
   const { params } = useRoute();
   const game = params as GameParams;
@@ -35,6 +37,14 @@ export function Game() {
       .then((data) => {
         setDuos(data);
         setIsLoading(false);
+      });
+  }
+
+  async function getDuoDiscord(duoId: string) {
+    fetch(`http://192.168.1.86:3333/ads/${duoId}/discord`)
+      .then((response) => response.json())
+      .then((data) => {
+        setDuoSelected(data.discord);
       });
   }
 
@@ -90,7 +100,7 @@ export function Game() {
             refreshing={isLoading}
             renderItem={({ item }) => (
               <DuoCard
-                onConnect={() => {}}
+                onConnect={() => getDuoDiscord(item.id)}
                 data={item}
               />
             )}
@@ -99,6 +109,12 @@ export function Game() {
             )}
           />
         )}
+
+        <DuoMatch
+          onClose={() => setDuoSelected("")}
+          discord={duoSelected}
+          visible={duoSelected.length > 0}
+        />
       </SafeAreaView>
     </Background>
   );

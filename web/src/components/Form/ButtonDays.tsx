@@ -11,7 +11,7 @@ export function ButtonDays(props: ButtonDaysProps) {
       <Tooltip.Root>
         <Tooltip.Trigger
           type="button"
-          className="w-8 h-8 xl:h-12 rounded bg-zinc-900 hover:bg-violet-500"
+          className="w-8 h-8 xl:h-12 rounded bg-zinc-900 hover:bg-violet-500 "
         >
           {props.title.split("")[0]}
         </Tooltip.Trigger>

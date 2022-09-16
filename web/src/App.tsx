@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import ReactLoading from "react-loading";
 import * as Dialog from "@radix-ui/react-dialog";
-import { GameController } from "phosphor-react";
+import axios from "axios";
+import "keen-slider/keen-slider.min.css";
+import { useKeenSlider } from "keen-slider/react"; // import from 'keen-slider/react.es' for to get an ES module
 
 import "animate.css";
 
@@ -11,32 +13,43 @@ import { CreateAdBanner } from "./components/CreateAdBanner";
 import "./styles/main.css";
 
 import logoNlw from "./assets/logo-nlw-esports.svg";
-import { Input } from "./components/Form/Input";
-import { ButtonDays } from "./components/Form/ButtonDays";
-import { Checkbox } from "./components/Form/Checkbox";
+import { CreateAdModal } from "./components/CreateAdModal";
+import { Toaster } from "react-hot-toast";
 
 interface Game {
   id: string;
-  title: string;
+  name: string;
   banner: string;
   _count: {
     ads: number;
   };
 }
 
+// interface ArrowProps {
+//   disabled: boolean;
+//   onClick: () => void;
+//   left?: boolean;
+//   classes: string;
+// }
+
 function App() {
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [games, setGames] = useState<Game[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:3333/games")
-      .then((response) => response.json())
-      .then((data) => {
-        setTimeout(() => setGames(data), 1200);
-      });
+    getGames();
   }, []);
+
+  function getGames() {
+    axios("http://localhost:3333/games").then((response) => {
+      setTimeout(() => setGames(response.data), 1200);
+    });
+    setModalOpen(false);
+  }
 
   return (
     <div className="max-w-[1344px] mx-auto flex flex-col items-center my-20">
+      <Toaster />
       <img
         className="w-auto"
         src={logoNlw}
@@ -46,155 +59,39 @@ function App() {
         Seu <span className="bg-nlw-gradient bg-clip-text text-transparent">duo</span> está aqui.
       </h1>
 
-      <div className="grid grid-cols-6 gap-6 mt-16">
+      <div className="">
         {games.length === 0 ? (
-          <div className="col-span-6 my-20">
+          <div className="my-20">
             <ReactLoading
               type="spin"
               color="#fff"
             />
           </div>
         ) : (
-          games.map((game) => (
-            <GameBanner
-              key={game.id}
-              image={game.banner}
-              title={game.title}
-              adsCount={game._count.ads}
-            />
-          ))
+          <div className="relative">
+            <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-4 py-10">
+              {games.map((game) => (
+                <GameBanner
+                  key={game.id}
+                  image={game.banner}
+                  name={game.name}
+                  adsCount={game._count.ads}
+                />
+              ))}
+            </div>
+          </div>
         )}
       </div>
 
-      <Dialog.Root>
+      <Dialog.Root
+        open={modalOpen}
+        onOpenChange={(open: boolean) => setModalOpen(open)}
+      >
         <CreateAdBanner />
-        <Dialog.Portal>
-          <Dialog.Overlay className="bg-black/60 inset-0 fixed" />
-          <Dialog.Content className="bg-[#2A2634] py-8 px-10 text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute rounded-lg w-[480px] xl:w-[600px] shadow-lg shadow-black/25 animate__animated animate__fadeIn animate__faster transition ease-in-out ">
-            <Dialog.Title className="text-3xl font-black">Publique um anúncio</Dialog.Title>
-            <form
-              action=""
-              className="mt-8 flex flex-col gap-4"
-            >
-              <div className="flex flex-col gap-2">
-                <label
-                  htmlFor="game"
-                  className="font-semibold"
-                >
-                  Qual o game?
-                </label>
-                <Input
-                  id="game"
-                  type="text"
-                  placeholder="Selecione o game que deseja jogar"
-                />
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <label
-                  htmlFor="name"
-                  className="font-semibold"
-                >
-                  Seu nome (ou nickname)
-                </label>
-                <Input
-                  type="text"
-                  id="name"
-                  placeholder="Como te chamam dentro do game?"
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div className="flex flex-col gap-2">
-                  <label
-                    htmlFor="yearsPlaying"
-                    className="font-semibold"
-                  >
-                    Joga há quantos anos?
-                  </label>
-                  <Input
-                    id="yearsPlaying"
-                    type="number"
-                    placeholder="Tudo bem ser zero"
-                  />
-                </div>
-                <div className="flex flex-col gap-2">
-                  <label
-                    htmlFor="discord"
-                    className="font-semibold"
-                  >
-                    Qual seu discord?
-                  </label>
-                  <Input
-                    id="discord"
-                    type="text"
-                    placeholder="Usuário#0000"
-                  />
-                </div>
-              </div>
-
-              <div className="flex gap-6">
-                <div className="flex flex-col gap-2">
-                  <label
-                    htmlFor="weekDays"
-                    className="font-semibold"
-                  >
-                    Quando costuma jogar?
-                  </label>
-                  <div className="flex flex-wrap gap-1">
-                    <ButtonDays title="Domingo" />
-                    <ButtonDays title="Segunda" />
-                    <ButtonDays title="Terça" />
-                    <ButtonDays title="Quarta" />
-                    <ButtonDays title="Quinta" />
-                    <ButtonDays title="Sexta" />
-                    <ButtonDays title="Sábado" />
-                  </div>
-                </div>
-                <div className="flex flex-col gap-2 flex-1">
-                  <label
-                    htmlFor="hourStart"
-                    className="font-semibold"
-                  >
-                    Qual horário do dia?
-                  </label>
-                  <div className="grid grid-cols-2 gap-2">
-                    <Input
-                      id="hourStart"
-                      type="time"
-                      placeholder="De"
-                    />
-                    <Input
-                      id="hourEnd"
-                      type="time"
-                      placeholder="Até"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-2 flex justify-start items-center gap-2">
-                <Checkbox id="useVoiceChannel" />
-                <label
-                  className="cursor-pointer"
-                  htmlFor="useVoiceChannel"
-                >
-                  Costumo me conectar ao chat de voz
-                </label>
-              </div>
-
-              <footer className="mt-6 flex justify-end items-center gap-4">
-                <Dialog.Close className="bg-zinc-500 hover:bg-zinc-600 px-5 h-12 rounded-md font-semibold hover:shadow-lg">
-                  Cancelar
-                </Dialog.Close>
-                <button className="bg-violet-500 hover:bg-violet-600 px-5 h-12 rounded-md font-semibold hover:shadow-lg flex items-center gap-3">
-                  <GameController className="w-6 h-6" />
-                  Encontrar duo
-                </button>
-              </footer>
-            </form>
-          </Dialog.Content>
-        </Dialog.Portal>
+        <CreateAdModal
+          reloadGames={getGames}
+          data={games}
+        />
       </Dialog.Root>
     </div>
   );
